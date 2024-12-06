@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
-Route::get('posts', [PostController::class, 'posts']);
+use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\Group;
+
+
+Route::prefix('core/v1')->group(base_path('routes/core/api_v1.php'));

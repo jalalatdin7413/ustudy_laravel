@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,16 +15,15 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->email)->FirstOrFail();
 
-            if (!Hash::check($request->password, $user->password)) {
+            if (Hash::check($request->password, $user->password)){
+
             }
 
             auth()->login($user);
-            
 
             return response()->json([
-                    'token' => $user->createToken('core api')->plainTextToken
+                'token' => $user->createToken('core api')->plainTextToken
             ]);
-            
         } catch (ModelNotFoundException $ex) {
             throw new ModelNotFoundException("paydalaniwshi tabilmadi");
         }

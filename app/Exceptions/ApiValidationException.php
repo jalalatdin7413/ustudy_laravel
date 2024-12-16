@@ -5,25 +5,22 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Contracts\Validation\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
-<?php
 
-namespace App\Http\Requests\Traits;
-
-use App\Exceptions\ApiValidationException;
-use Illuminate\Contracts\Validation\Validator;
-
-trait FailedValidation
+class ApiValidationException extends Exception
 {
+    public function __construct(
+        protected Validator $validator
+    ) {}
+
     /**
-     * Handle a failed validation attempt.
-     *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Summary of render
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    protected function failedValidation(Validator $validator)
+    public function render(): JsonResponse
     {
-        throw new ApiValidationException($validator);
+        return response()->json([
+            'status' => 422,
+            'errors' => $this->validator->errors()
+        ], 422);
     }
 }

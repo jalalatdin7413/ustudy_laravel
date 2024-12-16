@@ -1,3 +1,4 @@
+
 <?php
 
 use Laravel\Sanctum\Sanctum;
@@ -46,6 +47,8 @@ return [
     |
     */
 
+    'at_expiration' => 60,
+    'rt_expiration' => 60*24*92,
     'expiration' => null,
 
     /*

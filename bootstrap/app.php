@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Response;
+use Laravel\Sanctum\Http\Middleware\CheckAbilities;
+use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -16,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            'abilities' => CheckAbilities::class,
+            'ability' => CheckForAnyAbility::class,
+        ]);
         $middleware->group('api', [
             \App\Http\Middleware\ApiJson::class,
         ]); 
@@ -38,7 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (HttpException $ex) {
             return response()->json([
                 'status' => $ex->getStatusCode(),
-                'message' => $ex->getMessage
+                'message' => $ex->getMessage()
             ], $ex->getStatusCode());
         });
 

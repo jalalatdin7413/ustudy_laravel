@@ -13,6 +13,18 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'description'
-    ];
+        'description',
+        'view',
+        'shared',
+        'recommended',
+        'create_at',
+        'updated_at'
+   ];
+
+   protected function casts(): array
+   {
+     return [
+        'recommended' => 'bool',
+     ];
+   }
 }

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Core\v1\Auth;
 
+use App\Http\Requests\Traits\FailedValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
+    use FailedValidation;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -19,13 +22,11 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    
-     public function rules(): array
-     {
+    public function rules(): array
+    {
         return [
             'email' => 'required|string|email',
             'password' => 'required|string|min:8'
         ];
-     }
-    
+    }
 }

@@ -37,6 +37,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-USER root
+USER www-data
 
 WORKDIR /var/www/backend

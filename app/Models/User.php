@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Casts\PasswordAttributeCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,9 +24,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'country_id',
         'name',
         'email',
-        'password',
+        'password'
     ];
 
     /**
@@ -47,24 +49,32 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
             'password' => PasswordAttributeCast::class,
         ];
     }
 
     /**
-     * Summary of user
+     * Summary of country
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    /**
+     * Summary of posts
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
     /**
-     * Summary of user
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Summary of point
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
 
     public function point(): HasOne

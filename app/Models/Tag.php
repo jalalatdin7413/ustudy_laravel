@@ -13,11 +13,11 @@ class Tag extends Model
         'name'
     ];
 
-    protected function casts(): array
+    protected function casts(): array 
     {
         return [
             'created_at' => 'datetime',
-            'updated-at' => 'datetime',
+            'updated_at' =>'datetime'
         ];
     }
 
@@ -25,7 +25,7 @@ class Tag extends Model
      * Summary of tags
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(): BelongsToMany
+    public function posts(): BelongsToMany 
     {
         return $this->belongsToMany(Post::class, 'posts_tags', 'tag_id', 'post_id');
     }

@@ -50,6 +50,6 @@ class Post extends Model
      */
     public function tags(): BelongsToMany
     {
-      return $this->belongsToMany(Tag::class, 'posts_id', 'post_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'posts_tags', 'post_id', 'tag_id');
     }
 }

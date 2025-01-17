@@ -41,7 +41,7 @@ class Post extends Model
 
    public function user(): BelongsTo
    {
-      return $this->belongsTo(User::class, 'user_id', 'id');
+       return $this->belongsTo(User::class, 'user_id', 'id');
    }
 
    /**
@@ -50,6 +50,6 @@ class Post extends Model
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'posts_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'posts-tags', 'post_id', 'tag_id');
     }
 }

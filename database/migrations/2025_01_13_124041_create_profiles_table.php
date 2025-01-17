@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('country_id')->constrained('countries')->restrictOnDelete()->cascadeOnUpdate();
             $table->string('address');
             $table->timestamps();
+            
         });
     }
 

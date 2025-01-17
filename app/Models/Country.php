@@ -36,6 +36,7 @@ class Country extends Model
             secondLocalKey: 'user_id'
         );
     }
+    
 
     /**
      * Summary of posts

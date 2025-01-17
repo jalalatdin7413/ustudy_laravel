@@ -23,5 +23,5 @@ Route::prefix('auth')->middleware(['auth:sanctum', 'ability:' . TokenAbilityEnum
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-Route::get('country', fn () => Country::find(1)->user()->toSql());
+Route::get('country', fn() => Country::find(1)->user()->toSql());
 

@@ -20,14 +20,15 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Uzbekistan',
                 'created_at' => now(),
-                'updated_at' => now(),
+                'updated_at' => now()
             ],
             [
-                'name' => 'Kazakhstan',
+                'name' => 'Kazakkhstan',
                 'created_at' => now(),
-                'updated_at' => now(),
-            ],
+                'updated_at' => now()
+            ]
         ]);
+    
 
         User::create([
             'country_id' => Country::inRandomOrder()->first()->id,

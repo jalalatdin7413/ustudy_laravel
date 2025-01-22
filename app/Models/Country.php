@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class Country extends Model
 {
@@ -21,21 +20,7 @@ class Country extends Model
         ];
     }
 
-    /**
-     * Summary of user
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
-     */
-    public function user(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            related: User::class,
-            through: Profile::class,
-            firstKey: 'country_id',
-            secondKey: 'id',
-            localKey: 'id',
-            secondLocalKey: 'user_id'
-        );
-    }
+
     
 
     /**

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -83,23 +82,4 @@ class User extends Authenticatable
         return $this->hasOne(UserPoint::class, 'user_id', 'id');
     } 
 
-    /**
-     * Summary of phone
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
-     */
-
-    public function phone(): MorphOne
-    {
-        return $this->morphOne(Phone::class, 'phoneable');
-    } 
-
-    /**
-     * Summary of computer
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
-     */
-
-    public function computer(): MorphOne
-    {
-        return $this->morphOne(Computer::class, 'computable');
-    } 
 }

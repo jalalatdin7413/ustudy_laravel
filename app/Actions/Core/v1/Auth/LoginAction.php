@@ -23,7 +23,7 @@ class LoginAction
 
             auth()->login($user);
 
-            $accessTokenExpiration = now()->addMinutes(config('sanctum.ac_expiration'));
+            $accessTokenExpiration = now()->addMinutes(config('sanctum.at_expiration'));
             $refreshTokenExpiration = now()->addMinutes(config('sanctum.rt_expiration'));
 
             $accessToken =  auth()->user()->createToken(

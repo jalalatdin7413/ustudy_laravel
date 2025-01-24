@@ -4,19 +4,18 @@ namespace App\Dto\Core\v1\Auth;
 
 use App\Http\Requests\Core\v1\Auth\LoginRequest;
 
-class LoginDto 
+class LoginDto
 {
     public function __construct(
-        string $email,
-        string $password,
+        public string $email,
+        public string $password,
     ) {}
 
-    public static function from(LoginRequest $request): self 
+    public static function from(LoginRequest $request): self
     {
-        return new self (
-           email: $request->get('email'),
-           password: $request->get('password')
+        return new self(
+            email: $request->get('email'),
+            password: $request->get('password')
         );
     }
 }
-

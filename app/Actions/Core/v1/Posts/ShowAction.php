@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace App\Actions\Core\V1\Posts;
+namespace App\Actions\Core\v1\Posts;
 
 use App\Actions\Traits\GenerateKeyCacheTrait;
 use App\Exceptions\ApiResponseException;

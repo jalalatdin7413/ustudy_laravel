@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder
             'country_id' => Country::inRandomOrder()->first()->id,
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'email_verified_at' => now(),
+            'phone' => '998975427877',
+            'phone_verified_at' => now(),
             'password' => 12345678
         ])->point()->create();
 

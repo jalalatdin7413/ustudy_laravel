@@ -10,6 +10,7 @@ class RegistrationDto
         public int $countryId,
         public string $name,
         public string $email,
+        public int $phone,
         public string $password,
     ) {}
 

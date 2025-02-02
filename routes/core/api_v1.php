@@ -2,6 +2,8 @@
 
 use App\Enums\TokenAbilityEnum;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\OtpVerificationController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,8 @@ Route::prefix('posts')->group(function () {
 Route::prefix('auth')->middleware('guest:sanctum')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('registration', [AuthController::class, 'registration']);
+    Route::post('otp/accept', [OtpVerificationController::class, 'accept']);
+    Route::get('email/verify{id}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 });
 
 /**
@@ -33,12 +37,21 @@ Route::prefix('auth')->middleware(['auth:sanctum', 'ability:' . TokenAbilityEnum
 });
 
 /**
- * Routs for Auth & Verified Users
+ * Routs for Auth 
  */
 Route::middleware(['auth:sanctum', 'ability:' . TokenAbilityEnum::ACCESS_TOKEN->value])->group(function () {
     Route::prefix('auth')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('email/resend', [EmailVerificationController::class, 'resend'])->name('verification.resend');
     });
 });
 
+/**
+ * Routs for Auth & Verified Users
+ */
+Route::middleware(['auth.sanctum', 'ability:' . TokenAbilityEnum::ACCESS_TOKEN->value, 'verified'])->group(function () {
+    Route::get('test', function () {
+        return response()->json("You're verified!");
+    });
+});

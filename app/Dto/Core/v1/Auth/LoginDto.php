@@ -7,14 +7,14 @@ use App\Http\Requests\Core\v1\Auth\LoginRequest;
 class LoginDto
 {
     public function __construct(
-        public string $email,
+        public int $phone,
         public string $password,
     ) {}
 
     public static function from(LoginRequest $request): self
     {
         return new self(
-            email: $request->get('email'),
+            phone: $request->get('phone'),
             password: $request->get('password')
         );
     }

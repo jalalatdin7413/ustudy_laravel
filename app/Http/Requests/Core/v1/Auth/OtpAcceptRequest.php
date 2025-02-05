@@ -1,14 +1,10 @@
 <?php
-
-namespace App\Http\Requests\Core\V1\Auth;
-
+namespace App\Http\Requests\Core\v1\Auth;
 use App\Http\Requests\Traits\FailedValidation;
 use Illuminate\Foundation\Http\FormRequest;
-
 class OtpAcceptRequest extends FormRequest
 {
     use FailedValidation;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -16,7 +12,6 @@ class OtpAcceptRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +21,7 @@ class OtpAcceptRequest extends FormRequest
     {
         return [
             'phone' => 'required|numeric|max_digits:12|min_digits:12',
-            'code' => 'required|nummeric|max_digits:6|min_digits:6'
+            'code' => 'required|numeric|max_digits:6|min_digits:6'
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Actions\Core\V1\Auth;
 use App\Dto\Core\v1\Auth\RegistrationDto;
 use App\Actions\Core\v1\Auth\Otp\SendAction;
 use App\Traits\ResponseTrait;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\JsonResponse;
 
 

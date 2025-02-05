@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'phone',
-        'password'
+        'password',
+        'phone_verified_at'
     ];
 
     /**
@@ -81,6 +84,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function point(): HasOne
     {
         return $this->hasOne(UserPoint::class, 'user_id', 'id');
-    } 
+    }
+    
+    /**
+     * Has Verified Phone
+     * @return bool
+     */
+    public function hasVerifiedPhone(): bool
+    {
+        return (bool) $this->phone_verified_at;
+    }
 
 }

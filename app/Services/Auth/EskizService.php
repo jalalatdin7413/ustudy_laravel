@@ -4,7 +4,7 @@ namespace App\Services\Auth;
 
 use App\Exceptions\ApiResponseException;
 use App\Traits\ResponseTrait;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class EskizService
@@ -17,9 +17,11 @@ class EskizService
      */
     private string $token;
 
+    const REDIS_KEY = 'otp_token';
+
     public function __construct()
     {
-        $this->token = Cache::has($this::REDIS_KEY) ? Cache::get($this::REDIS_KEY) : Cache::put($this::REDIS_KEY, $this->getToken(), now()->addDays(28));
+        $this->token = Cache::has($this::REDIS_KEY) ? Cache::get($this::REDIS_KEY) : Cache::put($this::REDIS_KEY, $this->getToken(), now()->addDays(29));
     }
 
     /**
@@ -52,25 +54,24 @@ class EskizService
      */
     public function send(string $phone, string $message): void
     {
-         $response = Http::withToken($this->token)
+        $response = Http::withToken($this->token)
             ->post(
                 url: config('eskiz.url') . '/message/sms/send',
                 data: [
                     'mobile_phone' => $phone,
-                    'message' => $message,
+                    //'message' => $message,
                     'from' => 4546
                 ]
             );
-           
+
         $data = $response->json();
         
         if ($response->clientError()) {
             throw new ApiResponseException($data['message'], 400);
         }
-    
-        if ($response->serverError()) {
-            throw new ApiResponseException("Eskiz benen baylanista server ta'repten problema shiqti", 500);
-        }
-    }     
-}
 
+        if ($response->serverError()) {
+            throw new ApiResponseException("Eskiz benen baylanisli server ta'repinen problema shiqti", 500);
+        }
+    }
+}

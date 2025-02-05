@@ -2,12 +2,11 @@
 
 namespace App\Actions\Core\V1\Auth\Otp;
 
-use App\Exceptions\ApiResponseException;
 use App\Traits\ResponseTrait;
 use App\Services\Auth\EskizService;
-use Illuminate\Container\Attributes\Cache;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 class SendAction
 {
@@ -15,7 +14,7 @@ class SendAction
 
     protected EskizService $eskizService;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->eskizService = new EskizService();
     }
@@ -23,7 +22,6 @@ class SendAction
     /**
      * Summary of __invoke
      * @param array $user
-     * @throws \App\Exceptions\ApiResponseException
      * @return JsonResponse
      */
     public function __invoke(array $user): JsonResponse
@@ -38,12 +36,18 @@ class SendAction
             $second = $ttl % 60;
             $second = $second < 10 ? '0' . $second : $second;
 
-            throw new ApiResponseException(__('auth.otp.exists', ['sec' => '0' . $minute . ':' . $second]), 400);
+            return static::toResponse(
+                code: 400,
+                message: __('auth.otp.exists', ['sec' => '0' . $minute . ':' . $second]),
+                ttl: $ttl
+            );
+
         }
 
         $this->eskizService->send(
             phone: $user['phone'],
-            message: __('auth.otp.message', ['code' => $code])
+            //message: __('auth.otp.message', ['code' => $code])
+            message: "Bul Eskiz dan test"
         );
 
         Cache::set('otp_verification_' . $user['phone'], $code, $ttl);

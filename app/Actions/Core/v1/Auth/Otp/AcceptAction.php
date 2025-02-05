@@ -32,10 +32,12 @@ class AcceptAction
         }
 
         if (Cache::get('otp_verification_' . $dto->phone) != $dto->code) {
-            throw new ApiResponseException(__('auth.opt.code_incorrect'), 400);
+            throw new ApiResponseException(__('auth.otp.code_incorrect'), 400);
         }
 
         $user = User::create($data);
+
+        $user->assignRole('user');
 
         $user->update(['phone_verified_at' => now()]);
 

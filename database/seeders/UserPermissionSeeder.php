@@ -20,6 +20,7 @@ class UserPermissionSeeder extends Seeder
 
         Permission::create(['guard_name' => 'web', 'name' => 'dashboard']);
         Permission::create(['guard_name' => 'web', 'name' => 'manage-users']);
+        Permission::create(['guard_name' => 'web', 'name' => 'posts']);
 
         $role1 = Role::create([
             'guard_name' => 'web',
@@ -54,6 +55,8 @@ class UserPermissionSeeder extends Seeder
         $user->point()->create();
 
         $user->assignRole($role1);
+        $user->givePermissionTo('posts');
+        
 
         User::factory(9)->create()->map(function ($user) use ($role3) {
             $user->point()->create();

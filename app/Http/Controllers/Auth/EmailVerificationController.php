@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class EmailVerificationController extends Controller
 {
     use ResponseTrait;
+
     /**
      * Verify Email
      */
@@ -25,10 +26,13 @@ class EmailVerificationController extends Controller
                     message: "Verification link is expired",
                 );
             }
+
             $user = User::findOrFail($request->id);
+
             if (!$user->hasVerifiedEmail()) {
                 $user->markEmailAsVerified();
             }
+
             return static::toResponse(
                 message: "Email addressin'izdi a'wmetli tastiyiqladin'iz!"
             );
@@ -36,18 +40,22 @@ class EmailVerificationController extends Controller
             throw new ApiResponseException('User not found', 404);
         }
     }
+
     /**
      * Resend Email Verification
      */
     public function resend(): JsonResponse
     {
         $user = auth()->user();
+
         if ($user->hasVerifiedEmail()) {
             return static::toResponse(
                 message: "User already is verified"
             );
         }
+
         $user->sendEmailVerificationNotification();
+        
         return static::toResponse(
             message: "Verfication link resended"
         );

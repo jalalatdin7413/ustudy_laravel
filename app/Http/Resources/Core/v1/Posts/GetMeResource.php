@@ -4,6 +4,7 @@ namespace App\Http\Resources\Core\v1\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use PharIo\Manifest\Email;
 
 class GetMeResource extends JsonResource
 {

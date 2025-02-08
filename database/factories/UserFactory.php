@@ -27,7 +27,8 @@ class UserFactory extends Factory
     {
         return [
             'country_id' => Country::inRandomOrder()->first()->id,
-            'name' => fake()->name(),
+            'first_name' => fake()->firstName('male'),
+            'last_name' => fake()->lastName('male'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'phone' => fake()->unique()->e164phoneNumber(),

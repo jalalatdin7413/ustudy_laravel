@@ -13,7 +13,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -26,10 +25,12 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'country_id',
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'phone',
         'password',
+        'email_verified_at',
         'phone_verified_at'
     ];
 
@@ -44,6 +45,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Summary of appends
+     * @var array
+     */
+    protected $appends = [
+        'full_name'
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -55,6 +64,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'phone_verified_at' => 'datetime',
             'password' => PasswordAttributeCast::class,
         ];
+    }
+
+     /**
+     * Summary of getFullNameAttribute
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**

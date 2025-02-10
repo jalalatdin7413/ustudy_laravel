@@ -23,7 +23,7 @@ return [
         'exists' => "Ko'rsetilgen nomerge sms kod jiberilgen, qalg'an waqit: :sec",
         'code_expired' => "Kiritilgen kod waqti o'tip ketken",
         'code_incorrect' => "Kiritilgen kod qa'te",
-        'account_verifed' => "Telefon nomer a'wmetli tastiyiqlandi!",
+        'account_verified' => "Telefon nomer a'wmetli tastiyiqlandi!",
         'message' => "Project.uz dan tastiyiqlaw kodin'iz: :code",
     ]
 ];

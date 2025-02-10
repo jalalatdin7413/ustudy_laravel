@@ -6,7 +6,7 @@ use App\Traits\ResponseTrait;
 use App\Services\Auth\EskizService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Cache;
+use Cache;
 
 class SendAction
 {
@@ -47,7 +47,7 @@ class SendAction
         $this->eskizService->send(
             phone: $user['phone'],
             //message: __('auth.otp.message', ['code' => $code])
-            message: "Bul Eskiz dan test"
+            message: "Bu Eskiz dan test"
         );
 
         Cache::set('otp_verification_' . $user['phone'], $code, $ttl);

@@ -4,7 +4,7 @@ namespace App\Services\Auth;
 
 use App\Exceptions\ApiResponseException;
 use App\Traits\ResponseTrait;
-use Illuminate\Support\Facades\Cache;
+use Cache;
 use Illuminate\Support\Facades\Http;
 
 class EskizService
@@ -59,7 +59,7 @@ class EskizService
                 url: config('eskiz.url') . '/message/sms/send',
                 data: [
                     'mobile_phone' => $phone,
-                    //'message' => $message,
+                    'message' => $message,
                     'from' => 4546
                 ]
             );

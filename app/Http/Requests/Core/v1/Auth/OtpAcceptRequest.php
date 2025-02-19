@@ -21,7 +21,7 @@ class OtpAcceptRequest extends FormRequest
     {
         return [
             'phone' => 'required|numeric|max_digits:12|min_digits:12',
-            'code' => 'required|numeric|max_digits:6|min_digits:6'
+            'code' => 'required|numeric|max_digits:6|min_digits:6',
         ];
     }
 }

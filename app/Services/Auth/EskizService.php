@@ -13,7 +13,6 @@ class EskizService
 
     /**
      * Summary of token
-     * @var string
      */
     private string $token;
 
@@ -26,18 +25,18 @@ class EskizService
 
     /**
      * Summary of getToken
+     * 
      * @throws \App\Exceptions\ApiResponseException
-     * @return string
      */
     public function getToken(): string
     {
-        $response = Http::post(config('eskiz.url') . '/auth/login', [
+        $response = Http::post(config('eskiz.url').'/auth/login', [
             'email' => config('eskiz.login'),
             'password' => config('eskiz.password'),
         ]);
 
-        if (!$response->ok()) {
-            throw new ApiResponseException("Eskiz benen baylanisiwda problema", 400);
+        if (! $response->ok()) {
+            throw new ApiResponseException('Eskiz benen baylanisiwda problema', 400);
         }
 
         $data = $response->json();
@@ -47,20 +46,17 @@ class EskizService
 
     /**
      * Summary of send
-     * @param string $phone
-     * @param string $message
      * @throws \App\Exceptions\ApiResponseException
-     * @return void
      */
     public function send(string $phone, string $message): void
     {
         $response = Http::withToken($this->token)
             ->post(
-                url: config('eskiz.url') . '/message/sms/send',
+                url: config('eskiz.url').'/message/sms/send',
                 data: [
                     'mobile_phone' => $phone,
                     'message' => $message,
-                    'from' => 4546
+                    'from' => 4546,
                 ]
             );
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 class Country extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     protected function casts():array 
@@ -20,12 +20,8 @@ class Country extends Model
         ];
     }
 
-
-    
-
     /**
      * Summary of posts
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function posts(): HasManyThrough
     {

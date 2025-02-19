@@ -21,8 +21,8 @@ class LoginAction
         try {
             $user = User::where('phone', $dto->phone)->firstOrFail();
 
-            if (!Hash::check($dto->password, $user->password)) {
-                throw new ApiResponseException("Kiritilgen parol duris emes", 401);
+            if (! Hash::check($dto->password, $user->password)) {
+                throw new ApiResponseException('Kiritilgen parol duris emes', 401);
             }
 
             auth()->login($user);
@@ -30,13 +30,13 @@ class LoginAction
             $accessTokenExpiration = now()->addMinutes(config('sanctum.at_expiration'));
             $refreshTokenExpiration = now()->addMinutes(config('sanctum.rt_expiration'));
 
-            $accessToken =  auth()->user()->createToken(
+            $accessToken = auth()->user()->createToken(
                 name: 'access token',
-                abilities: [TokenAbilityEnum::ACCESS_TOKEN->value],
+                abilities: [TokenAbilityEnum::ACCESS_TOKEN->value0],
                 expiresAt: $accessTokenExpiration
             );
 
-            $refreshToken =  auth()->user()->createToken(
+            $refreshToken = auth()->user()->createToken(
                 name: 'refresh token',
                 abilities: [TokenAbilityEnum::ISSUE_ACCESS_TOKEN->value],
                 expiresAt: $refreshTokenExpiration
@@ -48,10 +48,10 @@ class LoginAction
                     'refresh_token' => $refreshToken->plainTextToken,
                     'at_expired_at' => $accessTokenExpiration->format('Y-m-d H:i:s'),
                     'rf_expired_at' => $refreshTokenExpiration->format('Y-m-d H:i:s'),
-                    ]
-                );
+                ]
+            );
         } catch (ModelNotFoundException $ex) {
-            throw new ModelNotFoundException("paydalaniwshi tabilmadi");
+            throw new ModelNotFoundException('paydalaniwshi tabilmadi');
         }
     }
 }

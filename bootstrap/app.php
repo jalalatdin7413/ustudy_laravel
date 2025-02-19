@@ -31,34 +31,34 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->group('api', [
             \App\Http\Middleware\ApiJson::class,
-        ]); 
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $ex) {
             return response()->json([
                 'status' => Response::HTTP_UNAUTHORIZED,
-                'message' => $ex->getMessage()
+                'message' => $ex->getMessage(),
             ], Response::HTTP_UNAUTHORIZED);
         });
 
         $exceptions->render(function (AuthorizationException $ex) {
             return response()->json([
                 'status' => Response::HTTP_FORBIDDEN,
-                'message' => $ex->getMessage()
+                'message' => $ex->getMessage(),
             ], Response::HTTP_FORBIDDEN);
         });
 
         $exceptions->render(function (HttpException $ex) {
             return response()->json([
                 'status' => $ex->getStatusCode(),
-                'message' => $ex->getMessage()
+                'message' => $ex->getMessage(),
             ], $ex->getStatusCode());
         });
 
         $exceptions->render(function (\Throwable $ex) {
             return response()->json([
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => $ex->getMessage()
+                'message' => $ex->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         });
     })->create();

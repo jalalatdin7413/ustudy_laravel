@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\Cache;
 
 class IndexAction
 {
-    use ResponseTrait, GenerateKeyCacheTrait;
+    use GenerateKeyCacheTrait, ResponseTrait;
 
     public function __invoke(IndexDto $dto): JsonResponse
     {
-        $data = Cache::remember('posts' . $this->generateKey(), now()->addDay(), function () use ($dto) {
+        $data = Cache::remember('posts'.$this->generateKey(), now()->addDay(), function () use ($dto) {
             $items = Post::query();
 
             if ($dto->search) {
                 $items
-                    ->where('title', 'LIKE', '%' . $dto->search . '%')
-                    ->orWhere('description', 'LIKE', '%' . $dto->search . '%');
+                    ->where('title', 'LIKE', '%'.$dto->search.'%')
+                    ->orWhere('description', 'LIKE', '%'.$dto->search.'%');
             }
 
             if ($dto->from) {
@@ -31,12 +31,12 @@ class IndexAction
             }
 
             switch ($dto->sort) {
-                case "popular";
+                case 'popular';
                     $items
                          ->orderByDesc('view')
                          ->orderByDesc('shared');
                     break;
-                case "recommended";
+                case 'recommended';
                     $items
                          ->where('recommended', operator:'=', value:true);
                 default:
@@ -55,7 +55,7 @@ class IndexAction
                     'per_page' => $data->perPage(),
                     'last_page' => $data->lastPage(),
                     'total' => $data->total(),
-                ]
+                ],
             ],
         );
     }

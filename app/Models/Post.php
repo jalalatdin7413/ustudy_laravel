@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, HasComment;
+    use HasComment, HasFactory, SoftDeletes;
 
     protected $table = 'posts';
 
@@ -24,31 +24,31 @@ class Post extends Model
         'shared',
         'recommended',
         'create_at',
-        'updated_at'
-   ];
+        'updated_at',
+    ];
 
-   #[\Override()]
-   protected function casts(): array
-   {
-     return [
-        'recommended' => 'bool',
-     ];
-   }
+    #[\Override()]
+    protected function casts(): array
+    {
+        return [
+            'recommended' => 'bool',
+        ];
+    }
 
-   /**
+    /**
      * Summary of user
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-   
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
-   public function user(): BelongsTo
-   {
-       return $this->belongsTo(User::class, 'user_id', 'id');
-   }
+    /**
+     * Summary of tags
+     */
 
-   
-     public function tags(): BelongsToMany
-     {
+    public function tags(): BelongsToMany
+    {
         return $this->belongsToMany(Tag::class, 'posts_tags', 'post_id', 'tag_id');
-     }
+    }
 }

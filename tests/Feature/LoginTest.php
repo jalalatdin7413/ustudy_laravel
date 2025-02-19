@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Country;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -18,19 +16,20 @@ class LoginTest extends TestCase
      */
     public function test_user_can_login(): void
     {
+        
         $user = User::create([
             'country_id' => Country::inRandomOrder()->first()->id,
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test_user@example.com',
             'email_verified_at' => now(),
-            'phone' => '998981600606',
+            'phone' => '99891600606',
             'phone_verified_at' => now(),
-            'password' => "J@l@l2004"
+            'password' => 'J@l@l2004',
         ]);
 
         $response = $this->postJson('/api/core/v1/auth/login', [
-            'phone' => 998981600606,
+            'phone' => 99891600606,
             'password' => 'J@l@l2004',
         ]);
 
@@ -43,8 +42,8 @@ class LoginTest extends TestCase
             'access_token',
             'refresh_token', 
             'at_expired_at',  
-            'rf_expired_at'
-        ]
+            'rf_expired_at',
+        ],
     ]);
 
         
